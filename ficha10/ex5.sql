@@ -1,0 +1,16 @@
+UPDATE STREAM
+SET Charge = 0
+WHERE CustomerId IN (
+  SELECT CustomerId
+  FROM CUSTOMER
+  JOIN COUNTRY ON (CUSTOMER.Country = COUNTRY.Name)
+  JOIN REGION USING (RegionId)
+  WHERE REGION.Name <> 'America'
+) AND MovieId IN (
+  SELECT MovieId
+  FROM MOVIE
+  NATURAL JOIN MOVIE_GENRE
+  NATURAL JOIN GENRE
+  WHERE GENRE.Label = 'Biography'
+  AND MOVIE.Duration <= 120
+);

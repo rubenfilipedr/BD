@@ -1,0 +1,7 @@
+SELECT Title, COUNT(S.StreamId) AS N
+FROM MOVIE M
+LEFT OUTER JOIN STREAM S
+ON (M.MovieId = S.MovieId)
+WHERE Year = 2015
+GROUP BY Title
+HAVING N <= 5;
